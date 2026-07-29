@@ -170,6 +170,42 @@ st.markdown(
     .dot-live { color: var(--sage); }
     .dot-stub { color: var(--charcoal-soft); opacity: 0.55; }
     .flag-label { color: var(--amber); font-weight: 600; }
+
+    /* Hero header — eyebrow, subtitle, badge pill */
+    .eyebrow, [data-testid="stAppViewContainer"] .eyebrow {
+        font-family: 'IBM Plex Mono', monospace !important;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--clay);
+        margin-bottom: 4px;
+    }
+    .hero-sub {
+        font-size: 18px !important;
+        color: var(--charcoal);
+        max-width: 60ch;
+        margin: 4px 0 0 0;
+    }
+    .badge-line, [data-testid="stAppViewContainer"] .badge-line {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'IBM Plex Mono', monospace !important;
+        font-size: 12px;
+        color: var(--charcoal);
+        background: var(--cream-dim);
+        border: 1px solid var(--line);
+        padding: 5px 12px;
+        border-radius: 999px;
+        margin: 12px 0 8px 0;
+    }
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sage);
+        flex-shrink: 0;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -187,9 +223,17 @@ CATEGORY_LABELS = {
 # ---------------------------------------------------------------------------
 # Header — shown above every tab
 # ---------------------------------------------------------------------------
+st.markdown('<div class="eyebrow">Phase 1 demo — ACL Caregiver AI Challenge</div>', unsafe_allow_html=True)
 st.title("CIRCLE of Care")
-st.caption("Agentic AI care coordination — removes the mechanical orchestration from the caregiver, not just reminds them.")
-st.info(SYNTHETIC_DATA_BADGE)
+st.markdown(
+    '<p class="hero-sub">Agentic AI care coordination — removes the mechanical '
+    "orchestration from the caregiver, not just reminds them.</p>",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    f'<div class="badge-line"><span class="badge-dot"></span>{SYNTHETIC_DATA_BADGE}</div>',
+    unsafe_allow_html=True,
+)
 
 tab_translate, tab_rhythm, tab_agents, tab_audit = st.tabs(
     ["Translator", "Care Rhythm", "Agent Console", "Audit Log"]
