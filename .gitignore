@@ -1,0 +1,24 @@
+# Environment / secrets
+.env
+*.env
+!.env.example
+
+# Python
+venv/
+__pycache__/
+*.pyc
+.Python
+*.egg-info/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# App state (spend-cap counter, local scratch)
+data/.daily_call_count.json
+logs/
+
+# Real-family denylist — never commit actual identifying terms
+scripts/denylist.txt
+
+# OS
+.DS_Store

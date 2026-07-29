@@ -1,0 +1,15 @@
+# Data-safety denylist template — copy to scripts/denylist.txt and fill in
+# the REAL family's identifying details before every deploy. One term per
+# line. Blank lines and lines starting with # are ignored. Matching is
+# case-insensitive substring matching against every tracked file in the
+# repo (and, if you pass --check-dir, any other directory you point it at
+# — e.g. a rendered static export of the app).
+#
+# scripts/denylist.txt itself is gitignored — never commit the real list.
+#
+# Examples of what belongs here (replace with the real family's actual
+# details before running):
+#   real first + last name
+#   real street address / city / facility name
+#   any identifying condition + location combination
+#   real phone numbers / emails
