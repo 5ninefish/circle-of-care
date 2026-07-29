@@ -62,10 +62,17 @@ st.markdown(
         font-family: 'Source Sans 3', -apple-system, sans-serif;
         color: var(--charcoal);
     }
+    /* Streamlit sets font-family directly on its own text elements (p, span,
+       li, label, etc.), which beats an inherited value from the rule above
+       regardless of that rule's specificity. Target the leaf elements
+       directly so Source Sans 3 actually wins, everywhere in the app. */
+    [data-testid="stAppViewContainer"] * {
+        font-family: 'Source Sans 3', -apple-system, sans-serif !important;
+    }
     [data-testid="stMainBlockContainer"] { padding-top: 2.5rem; }
 
     /* Hero title — Fraunces, headline scale only */
-    h1 {
+    h1, [data-testid="stAppViewContainer"] h1 {
         font-family: 'Fraunces', Georgia, serif !important;
         font-weight: 500 !important;
         color: var(--charcoal) !important;
@@ -98,8 +105,8 @@ st.markdown(
 
     /* Tabs — active tab underlined in clay */
     [data-baseweb="tab-list"] { border-bottom: 1px solid var(--line); gap: 1.5rem; }
-    [data-baseweb="tab"] {
-        font-family: 'IBM Plex Mono', monospace;
+    [data-baseweb="tab"], [data-testid="stAppViewContainer"] [data-baseweb="tab"] {
+        font-family: 'IBM Plex Mono', monospace !important;
         font-size: 0.85rem;
         color: var(--charcoal-soft);
     }
@@ -134,7 +141,8 @@ st.markdown(
     }
 
     /* Data fields — mono, reinforces "this is a real log" */
-    [data-testid="stDataFrame"], [data-testid="stDataFrame"] * {
+    [data-testid="stDataFrame"], [data-testid="stDataFrame"] *,
+    [data-testid="stAppViewContainer"] [data-testid="stDataFrame"] * {
         font-family: 'IBM Plex Mono', monospace !important;
         font-size: 0.85rem !important;
     }
@@ -149,9 +157,9 @@ st.markdown(
     hr, [data-testid="stDivider"] { border-color: var(--line) !important; }
 
     /* Status pills and dots — replace default emoji, exact palette match */
-    .pill {
+    .pill, [data-testid="stAppViewContainer"] .pill {
         display: inline-block;
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: 'IBM Plex Mono', monospace !important;
         font-size: 11px;
         padding: 2px 10px;
         border-radius: 999px;
