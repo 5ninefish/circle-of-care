@@ -45,7 +45,7 @@ st.markdown(
         --cream: #FAF7F2;
         --cream-dim: #F1ECE3;
         --charcoal: #3A342E;
-        --charcoal-soft: #6B6259;
+        --charcoal-soft: #544C40;
         --line: #E4DCCE;
         --clay: #B5563C;
         --clay-deep: #9A4530;
