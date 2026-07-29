@@ -30,7 +30,7 @@ from data.margaret_chen import (
 
 FOOTER_TEXT = "Organizes instructions from your care team. Not medical advice. Verify changes with your provider."
 
-st.set_page_config(page_title="CIRCLE of Care", page_icon="🌀", layout="wide")
+st.set_page_config(page_title="CIRCLE of Care", page_icon="○", layout="wide")
 
 # Design system per DESIGN.md — Restrained Industrial-Organic. Fraunces for
 # hero/headline scale only, Source Sans 3 for body/UI, IBM Plex Mono for
@@ -147,6 +147,21 @@ st.markdown(
     }
 
     hr, [data-testid="stDivider"] { border-color: var(--line) !important; }
+
+    /* Status pills and dots — replace default emoji, exact palette match */
+    .pill {
+        display: inline-block;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 11px;
+        padding: 2px 10px;
+        border-radius: 999px;
+        margin-left: 4px;
+    }
+    .pill-amber { background-color: var(--amber-tint); color: var(--amber); }
+    .pill-sage { background-color: var(--sage-tint); color: var(--sage); }
+    .dot-live { color: var(--sage); }
+    .dot-stub { color: var(--charcoal-soft); opacity: 0.55; }
+    .flag-label { color: var(--amber); font-weight: 600; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -166,10 +181,10 @@ CATEGORY_LABELS = {
 # ---------------------------------------------------------------------------
 st.title("CIRCLE of Care")
 st.caption("Agentic AI care coordination — removes the mechanical orchestration from the caregiver, not just reminds them.")
-st.info(SYNTHETIC_DATA_BADGE, icon="🔒")
+st.info(SYNTHETIC_DATA_BADGE)
 
 tab_translate, tab_rhythm, tab_agents, tab_audit = st.tabs(
-    ["🔀 Translator", "📅 Care Rhythm", "🤖 Agent Console", "🧾 Audit Log"]
+    ["Translator", "Care Rhythm", "Agent Console", "Audit Log"]
 )
 
 
@@ -238,15 +253,14 @@ with tab_translate:
     result = st.session_state.get("last_result")
     if result:
         if result.outcome == "canned":
-            st.warning(result.message, icon="⚠️")
+            st.warning(result.message)
         elif result.message:
             st.caption(result.message)
 
         if result.uncertain:
             st.warning(
-                "⚠️ Uncertainty flagged — one or more items are missing information "
-                "or need clinician confirmation. See flags below.",
-                icon="⚠️",
+                "Uncertainty flagged — one or more items are missing information "
+                "or need clinician confirmation. See flags below."
             )
 
         col_source, col_checklist = st.columns(2)
@@ -266,9 +280,13 @@ with tab_translate:
             for item in result.items:
                 low_confidence = item.get("confidence") != "high" or item.get("flags")
                 title = item.get("task", "Untitled task")
-                badge = "🟡 needs confirmation" if low_confidence else "🟢 high confidence"
+                badge = (
+                    '<span class="pill pill-amber">needs confirmation</span>'
+                    if low_confidence
+                    else '<span class="pill pill-sage">high confidence</span>'
+                )
                 with st.container(border=True):
-                    st.markdown(f"**{title}**  \n{badge}")
+                    st.markdown(f"**{title}**  \n{badge}", unsafe_allow_html=True)
                     meta_bits = []
                     cat = CATEGORY_LABELS.get(item.get("category"), item.get("category"))
                     if cat:
@@ -282,7 +300,10 @@ with tab_translate:
                     if item.get("notes"):
                         st.markdown(item["notes"])
                     for flag_text in item.get("flags", []):
-                        st.markdown(f"🚩 {flag_text}")
+                        st.markdown(
+                            f'<span class="flag-label">Flag —</span> {flag_text}',
+                            unsafe_allow_html=True,
+                        )
 
         st.divider()
         confirmed = st.session_state.get("confirmed", False)
@@ -319,7 +340,7 @@ with tab_agents:
     overdue_count = sum(1 for row in CARE_LOG_TIMELINE if row["status"] not in ("Completed", "Scheduled"))
 
     with st.container(border=True):
-        st.markdown("### 🟢 Sentinel Vigilance — *LIVE*")
+        st.markdown('### <span class="dot-live">●</span> Sentinel Vigilance — *LIVE*', unsafe_allow_html=True)
         st.caption("The second pair of eyes: watches the care schedule and the translator's own output for anything that needs a human look.")
         st.markdown(
             f"Currently watching **{len(CARE_LOG_TIMELINE)}** Care Rhythm entries and the latest translation. "
@@ -330,17 +351,17 @@ with tab_agents:
     col_a, col_b, col_c = st.columns(3)
     with col_a:
         with st.container(border=True):
-            st.markdown("### ⚪ Circle-Orchestrator")
+            st.markdown('### <span class="dot-stub">○</span> Circle-Orchestrator', unsafe_allow_html=True)
             st.caption("Phase 2")
             st.markdown("Coordinates aides, transport (Handivan/Catholic Charities), and on-call contacts — the human dispatcher role, automated.")
     with col_b:
         with st.container(border=True):
-            st.markdown("### ⚪ Empathy Buffer")
+            st.markdown('### <span class="dot-stub">○</span> Empathy Buffer', unsafe_allow_html=True)
             st.caption("Phase 2")
             st.markdown("Smooths tone and framing across every message — shared coordination and dignity, never surveillance of care workers or the recipient.")
     with col_c:
         with st.container(border=True):
-            st.markdown("### ⚪ Baselines Extractor")
+            st.markdown('### <span class="dot-stub">○</span> Baselines Extractor', unsafe_allow_html=True)
             st.caption("Phase 2")
             st.markdown("Learns the recipient's normal patterns over time so Sentinel Vigilance can tell a real anomaly from a normal day.")
 
