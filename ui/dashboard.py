@@ -32,6 +32,126 @@ FOOTER_TEXT = "Organizes instructions from your care team. Not medical advice. V
 
 st.set_page_config(page_title="CIRCLE of Care", page_icon="🌀", layout="wide")
 
+# Design system per DESIGN.md — Restrained Industrial-Organic. Fraunces for
+# hero/headline scale only, Source Sans 3 for body/UI, IBM Plex Mono for
+# data fields (audit log, structured output). Amber replaces red for
+# uncertainty flags — a flag should read "confirm this," not "emergency."
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+    :root {
+        --cream: #FAF7F2;
+        --cream-dim: #F1ECE3;
+        --charcoal: #3A342E;
+        --charcoal-soft: #6B6259;
+        --line: #E4DCCE;
+        --clay: #B5563C;
+        --clay-deep: #9A4530;
+        --sage: #5B7A5B;
+        --sage-tint: #E4EBE1;
+        --amber: #C08A3E;
+        --amber-tint: #F6E9D3;
+    }
+
+    [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        background-color: var(--cream);
+    }
+    html, body, [class*="css"] {
+        font-family: 'Source Sans 3', -apple-system, sans-serif;
+        color: var(--charcoal);
+    }
+    [data-testid="stMainBlockContainer"] { padding-top: 2.5rem; }
+
+    /* Hero title — Fraunces, headline scale only */
+    h1 {
+        font-family: 'Fraunces', Georgia, serif !important;
+        font-weight: 500 !important;
+        color: var(--charcoal) !important;
+        letter-spacing: -0.01em;
+    }
+    h2, h3 { color: var(--charcoal) !important; }
+    [data-testid="stCaptionContainer"], .stCaption, small {
+        color: var(--charcoal-soft) !important;
+    }
+
+    /* Buttons — flat clay, no gradients */
+    .stButton button, .stButton button[kind="primary"], button[kind="primary"] {
+        background-color: var(--clay);
+        color: #FFFFFF;
+        border: 1px solid var(--clay);
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    .stButton button:hover, button[kind="primary"]:hover {
+        background-color: var(--clay-deep);
+        border-color: var(--clay-deep);
+        color: #FFFFFF;
+    }
+    .stButton button[kind="secondary"], button[kind="secondary"] {
+        background-color: transparent;
+        color: var(--clay);
+        border: 1px solid var(--clay);
+        border-radius: 4px;
+    }
+
+    /* Tabs — active tab underlined in clay */
+    [data-baseweb="tab-list"] { border-bottom: 1px solid var(--line); gap: 1.5rem; }
+    [data-baseweb="tab"] {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.85rem;
+        color: var(--charcoal-soft);
+    }
+    [data-baseweb="tab"][aria-selected="true"] {
+        color: var(--clay) !important;
+        border-bottom-color: var(--clay) !important;
+    }
+    [data-baseweb="tab-highlight"] { background-color: var(--clay) !important; }
+
+    /* Bordered containers (agent cards, checklist items) */
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        border-color: var(--line) !important;
+        border-radius: 8px !important;
+        background-color: #FFFFFF;
+    }
+
+    /* Alerts — amber for uncertainty, never red; sage for success */
+    [data-testid="stAlertContainer"]:has([data-testid="stAlertContentWarning"]) {
+        background-color: var(--amber-tint) !important;
+        border-radius: 8px;
+    }
+    [data-testid="stAlertContainer"]:has([data-testid="stAlertContentSuccess"]) {
+        background-color: var(--sage-tint) !important;
+        border-radius: 8px;
+    }
+    [data-testid="stAlertContainer"]:has([data-testid="stAlertContentInfo"]) {
+        background-color: var(--cream-dim) !important;
+        border-radius: 8px;
+    }
+    [data-testid="stAlertContentWarning"] p, [data-testid="stAlertContentSuccess"] p, [data-testid="stAlertContentInfo"] p {
+        color: var(--charcoal) !important;
+    }
+
+    /* Data fields — mono, reinforces "this is a real log" */
+    [data-testid="stDataFrame"], [data-testid="stDataFrame"] * {
+        font-family: 'IBM Plex Mono', monospace !important;
+        font-size: 0.85rem !important;
+    }
+
+    [data-testid="stTextArea"] textarea {
+        background-color: var(--cream-dim);
+        border-color: var(--line);
+        border-radius: 8px;
+        font-family: 'Source Sans 3', sans-serif;
+    }
+
+    hr, [data-testid="stDivider"] { border-color: var(--line) !important; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 CATEGORY_LABELS = {
     "medication": "Medication",
     "repositioning": "Repositioning",
