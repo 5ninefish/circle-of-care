@@ -80,7 +80,7 @@ st.markdown(
     }
     h2, h3 { color: var(--charcoal) !important; }
     [data-testid="stCaptionContainer"], .stCaption, small {
-        color: var(--charcoal-soft) !important;
+        color: var(--charcoal) !important;
     }
 
     /* Buttons — flat clay, no gradients */
@@ -108,7 +108,7 @@ st.markdown(
     [data-baseweb="tab"], [data-testid="stAppViewContainer"] [data-baseweb="tab"] {
         font-family: 'IBM Plex Mono', monospace !important;
         font-size: 0.85rem;
-        color: var(--charcoal-soft);
+        color: var(--charcoal);
     }
     [data-baseweb="tab"][aria-selected="true"] {
         color: var(--clay) !important;
