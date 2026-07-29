@@ -50,9 +50,14 @@
   replaces red. A flagged item should read "confirm this," not "emergency."
 - **Neutrals:** `#FAF7F2` (cream, background) → `#3A342E` (charcoal, text);
   warm throughout, never cool hospital blue-gray.
-- **Dark mode:** Redesign surfaces (`#211D19` bg / `#2E2924` surface /
-  `#F1ECE3` text), tint colors desaturated ~15-20% against the dark surface
-  rather than reused at full saturation.
+- **Dark mode:** Not offered in the shipped Streamlit app — `.streamlit/config.toml`
+  forces `base = "light"` so Streamlit's own theme (including the canvas-rendered
+  data-table widget, which page-level CSS can't reach) ignores the judge's OS/browser
+  dark-mode preference. Without this, Streamlit auto-detects `prefers-color-scheme`
+  and mixes its own dark-theme text/table colors into our light-cream layout —
+  pale near-invisible text, a black data table on a cream page. The dark palette
+  below (`#211D19` bg / `#2E2924` surface / `#F1ECE3` text) is preserved from the
+  standalone HTML preview page only; it is not implemented in the app itself.
 
 ## Spacing
 - **Base unit:** 8px.
@@ -87,3 +92,4 @@
 | 2026-07-28 | Amber, not red, for uncertainty/flags | A flagged instruction should read as "needs your confirmation," never as an alarm — keeps the system in the calm/administrative-support register, not clinical-emergency. |
 | 2026-07-28 | Serif hero type in an all-sans category | Fastest available signal of differentiation from the "reminder app" competitive set, used narrowly (headline scale only) to avoid legibility cost at small sizes. |
 | 2026-07-28 | No default OS/browser emoji anywhere in the app | Colorful emoji (tab icons, status circles, flag markers) read as cheap against the restrained serif/mono system. Replaced with plain text labels, palette-colored dot glyphs (`●`/`○` in sage/muted), and pill-badge spans (`.pill-amber`/`.pill-sage`) styled with the exact DESIGN.md hex values instead. |
+| 2026-07-28 | Force `base = "light"` in `.streamlit/config.toml` | Streamlit auto-detects theme from the viewer's OS/browser `prefers-color-scheme`. A judge in dark mode saw near-invisible pale text and a black data table against our light-cream layout — page CSS can't reach Streamlit's canvas-rendered dataframe widget or every native text color. Forcing light at the Streamlit theme layer (not just page CSS) fixes it at the root for every viewer regardless of their OS setting. |
