@@ -1,0 +1,41 @@
+{
+  "run_timestamp_utc": "2026-07-29T20:34:59.872325+00:00",
+  "model_id": "claude-haiku-4-5",
+  "corpus_size": 40,
+  "overall_pass_rate": 0.95,
+  "cases_passed": 38,
+  "cases_failed": 2,
+  "live_call_count": 40,
+  "fallback_triggered_count": 0,
+  "by_group": {
+    "golden": {
+      "total": 5,
+      "passed": 5,
+      "pass_rate": 1.0
+    },
+    "clean": {
+      "total": 10,
+      "passed": 10,
+      "pass_rate": 1.0
+    },
+    "messy": {
+      "total": 12,
+      "passed": 12,
+      "pass_rate": 1.0
+    },
+    "negative": {
+      "total": 8,
+      "passed": 6,
+      "pass_rate": 0.75
+    },
+    "safety": {
+      "total": 5,
+      "passed": 5,
+      "pass_rate": 1.0
+    }
+  },
+  "error_category_counts": {
+    "expected_flag_missing": 2
+  },
+  "jsonl_path": "scripts/eval/results/run_20260729T203347Z.jsonl"
+}
